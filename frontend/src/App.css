@@ -1,0 +1,403 @@
+/* ГОСТ Р 50948-2001 - Требования к эргономике интерфейсов */
+.App {
+  text-align: center;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f8f9fa; /* Bitrix-like фон */
+  min-height: 100vh;
+}
+
+/* Цветовая схема Битрикс24 */
+:root {
+  --bitrix-primary: #2fc6f6;
+  --bitrix-primary-dark: #1da5d4;
+  --bitrix-secondary: #535c69;
+  --bitrix-background: #f8f9fa;
+  --bitrix-surface: #ffffff;
+  --bitrix-border: #e0e0e0;
+  --bitrix-text: #333333;
+  --bitrix-text-light: #828b95;
+  --bitrix-success: #9dcf00;
+  --bitrix-warning: #ffa900;
+  --bitrix-danger: #ff5752;
+  --bitrix-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --bitrix-radius: 4px;
+}
+
+/* ГОСТ Р ИСО 9241-210 - Визуальное представление информации */
+.App-header {
+  background: linear-gradient(135deg, #2c3e50 0%, var(--bitrix-primary) 100%);
+  padding: 25px 20px;
+  color: white;
+  margin-bottom: 25px;
+  border-radius: var(--bitrix-radius);
+  box-shadow: var(--bitrix-shadow);
+}
+
+.App-header h1 {
+  margin: 0 0 15px 0;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+/* ГОСТ: Навигация должна быть интуитивно понятной */
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Кнопки в стиле Битрикс24 с требованиями ГОСТ */
+nav button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: var(--bitrix-radius);
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  gap: 6px;
+}
+
+nav button:hover {
+  background-color: white;
+  color: #2c3e50;
+  transform: translateY(-1px);
+}
+
+nav button.active {
+  background-color: white;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* Кнопка обновления в стиле Битрикс */
+.refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: var(--bitrix-success);
+  border: none;
+  border-radius: var(--bitrix-radius);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  gap: 6px;
+}
+
+.refresh-btn:hover {
+  background-color: #8bc34a;
+  transform: translateY(-1px);
+}
+
+/* ГОСТ Р ИСО 9241: Контент должен быть хорошо структурирован */
+.tab-content h2 {
+  color: var(--bitrix-text);
+  margin-bottom: 25px;
+  font-size: 1.5em;
+  font-weight: 600;
+  border-bottom: 2px solid var(--bitrix-primary);
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+/* Сетка карточек в стиле Битрикс24 */
+.clients-list, .deals-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+/* Карточки в стиле Битрикс24 */
+.client-card, .deal-card {
+  background: var(--bitrix-surface);
+  border: 1px solid var(--bitrix-border);
+  border-radius: var(--bitrix-radius);
+  padding: 20px;
+  text-align: left;
+  box-shadow: var(--bitrix-shadow);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.client-card:hover, .deal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  border-color: var(--bitrix-primary);
+}
+
+/* Заголовки карточек в стиле Битрикс */
+.client-card h3, .deal-card h3 {
+  margin: 0 0 15px 0;
+  color: var(--bitrix-text);
+  border-bottom: 1px solid var(--bitrix-border);
+  padding-bottom: 12px;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.client-card p, .deal-card p {
+  margin: 10px 0;
+  color: var(--bitrix-secondary);
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+/* Статусы в стиле Битрикс24 */
+.status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.status.active {
+  background-color: rgba(157, 207, 0, 0.1);
+  color: var(--bitrix-success);
+  border: 1px solid rgba(157, 207, 0, 0.3);
+}
+
+.status.inactive {
+  background-color: rgba(255, 87, 82, 0.1);
+  color: var(--bitrix-danger);
+  border: 1px solid rgba(255, 87, 82, 0.3);
+}
+
+.status.pending {
+  background-color: rgba(255, 169, 0, 0.1);
+  color: var(--bitrix-warning);
+  border: 1px solid rgba(255, 169, 0, 0.3);
+}
+
+/* Даты в стиле Битрикс */
+.date {
+  font-size: 12px;
+  color: var(--bitrix-text-light) !important;
+  margin-top: 15px !important;
+  border-top: 1px solid var(--bitrix-border);
+  padding-top: 12px;
+  font-style: normal;
+}
+
+/* Прогресс-бар в стиле Битрикс */
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: #ecf0f1;
+  border-radius: 3px;
+  margin-top: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--bitrix-primary), var(--bitrix-primary-dark));
+  border-radius: 3px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Сообщения об ошибках в стиле Битрикс */
+.error-message {
+  background-color: rgba(255, 87, 82, 0.05);
+  border: 1px solid var(--bitrix-danger);
+  border-radius: var(--bitrix-radius);
+  padding: 16px;
+  margin: 16px auto;
+  color: var(--bitrix-text);
+  text-align: center;
+  max-width: 500px;
+  box-shadow: var(--bitrix-shadow);
+}
+
+/* Состояние загрузки */
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 1.1em;
+  color: var(--bitrix-text);
+}
+
+.loading div {
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+/* Пустые состояния в стиле Битрикс */
+.empty-state {
+  text-align: center;
+  padding: 40px 30px;
+  color: var(--bitrix-text-light);
+  background: var(--bitrix-surface);
+  border-radius: var(--bitrix-radius);
+  box-shadow: var(--bitrix-shadow);
+  max-width: 400px;
+  margin: 0 auto;
+  border: 1px solid var(--bitrix-border);
+}
+
+.empty-state a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  padding: 10px 24px;
+  background-color: var(--bitrix-primary);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--bitrix-radius);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  gap: 6px;
+}
+
+.empty-state a:hover {
+  background-color: var(--bitrix-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* Дополнительные элементы в стиле Битрикс */
+
+/* Бейджи */
+.bitrix-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.bitrix-badge-success {
+  background-color: rgba(157, 207, 0, 0.1);
+  color: var(--bitrix-success);
+}
+
+.bitrix-badge-warning {
+  background-color: rgba(255, 169, 0, 0.1);
+  color: var(--bitrix-warning);
+}
+
+.bitrix-badge-danger {
+  background-color: rgba(255, 87, 82, 0.1);
+  color: var(--bitrix-danger);
+}
+
+/* Карточка с заголовком */
+.bitrix-card {
+  background: var(--bitrix-surface);
+  border-radius: var(--bitrix-radius);
+  box-shadow: var(--bitrix-shadow);
+  border: 1px solid var(--bitrix-border);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.bitrix-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--bitrix-border);
+}
+
+.bitrix-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--bitrix-text);
+  margin: 0;
+}
+
+/* ГОСТ Р ИСО 9241: Адаптивность */
+@media (max-width: 768px) {
+  .header-controls {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  nav {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  nav button {
+    flex: 1;
+    min-width: 120px;
+  }
+  
+  .clients-list, .deals-list {
+    grid-template-columns: 1fr;
+    padding: 10px;
+    gap: 15px;
+  }
+  
+  .client-card, .deal-card {
+    padding: 16px;
+  }
+  
+  .App-header {
+    padding: 20px 15px;
+  }
+}
+
+/* ГОСТ: Фокус-состояния для доступности */
+button:focus, a:focus {
+  outline: 2px solid var(--bitrix-primary);
+  outline-offset: 1px;
+}
+
+/* Утилиты выравнивания */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* Отступы в стиле Битрикс */
+.mb-16 { margin-bottom: 16px; }
+.mt-16 { margin-top: 16px; }
+.p-16 { padding: 16px; }
