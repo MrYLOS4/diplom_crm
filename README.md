@@ -1,71 +1,208 @@
-# Getting Started with Create React App
+CRM-система
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Учебный проект CRM-системы для учёта клиентов и сделок. Реализован в рамках курсовой работы.
 
-## Available Scripts
+**Стек:** Django + Django REST Framework (backend), React (frontend), SQLite (БД).
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Содержание
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [Возможности](#возможности)
+- [Структура проекта](#структура-проекта)
+- [Требования](#требования)
+- [Установка](#установка)
+- [Запуск](#запуск)
+- [API](#api)
+- [Админ-панель](#админ-панель)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Возможности
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Клиенты** — просмотр списка клиентов с контактами, компанией и статусом (активный / неактивный).
+- **Сделки** — список сделок с этапами (лид → контакт → предложение → переговоры → успех/потерян), суммой и вероятностью закрытия.
+- **Веб-интерфейс** — вкладки «Клиенты» и «Сделки», карточки, индикатор вероятности по сделкам, кнопка обновления данных.
+- **REST API** — полный CRUD для клиентов и сделок.
+- **Админ-панель Django** — добавление и редактирование клиентов и сделок.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Структура проекта
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+Diplom/
+├── crm_diploma/           # Django-проект (backend)
+│   ├── backend/           # Настройки, urls, wsgi
+│   ├── clients/           # Модель Client, API, сериализаторы
+│   ├── deals/             # Модель Deal, API, сериализаторы
+│   ├── users/             # Приложение users (модели — по необходимости)
+│   ├── manage.py
+│   └── db.sqlite3         # БД (создаётся после миграций)
+├── frontend/              # React-приложение (Create React App)
+│   ├── src/
+│   │   ├── App.js         # Основной UI: клиенты, сделки, загрузка данных
+│   │   ├── components/    # Login, Dashboard, ProtectedRoute
+│   │   └── ...
+│   ├── package.json
+│   └── public/
+├── venv/                  # Виртуальное окружение Python (не в git)
+├── requirements.txt       # Зависимости Python
+├── back.bat               # Запуск Django-сервера (Windows)
+├── front.bat              # Запуск React dev-сервера (Windows)
+├── manage.py              # Удобная точка входа (см. раздел «Запуск»)
+└── README.md
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Требования
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Python** 3.10+ (рекомендуется 3.12)
+- **Node.js** 18+ и **npm**
+- ОС: Windows (скрипты `*.bat`), при необходимости — ручной запуск на Linux/macOS
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Установка
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 1. Клонирование и переход в проект
 
-## Learn More
+```bash
+git clone <url-репозитория> Diplom
+cd Diplom
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 2. Backend (Django)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Создайте виртуальное окружение в **корне** проекта:
 
-### Code Splitting
+```bash
+python -m venv venv
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Активируйте его:
 
-### Analyzing the Bundle Size
+- **Windows (cmd):** `venv\Scripts\activate.bat`
+- **Windows (PowerShell):** `venv\Scripts\Activate.ps1`
+- **Linux/macOS:** `source venv/bin/activate`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Установите зависимости:
 
-### Making a Progressive Web App
+```bash
+pip install -r requirements.txt
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Перейдите в каталог Django-проекта и выполните миграции:
 
-### Advanced Configuration
+```bash
+cd crm_diploma
+python manage.py migrate
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Создайте суперпользователя для доступа в админку:
 
-### Deployment
+```bash
+python manage.py createsuperuser
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Вернитесь в корень: `cd ..`
 
-### `npm run build` fails to minify
+### 3. Frontend (React)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+cd frontend
+npm install
+cd ..
+```
+
+---
+
+## Запуск
+
+Перед работой с приложением должны быть запущены **и backend, и frontend**.
+
+### Вариант 1: скрипты (Windows)
+
+1. **Backend:** дважды кликнуть `back.bat` или в терминале:
+   ```bash
+   back.bat
+   ```
+   Django будет доступен по адресу: **http://127.0.0.1:8000**
+
+2. **Frontend:** в **другом** терминале:
+   ```bash
+   front.bat
+   ```
+   React откроется, как правило, по адресу: **http://localhost:3000**
+
+### Вариант 2: вручную
+
+**Терминал 1 — backend:**
+
+```bash
+cd crm_diploma
+python manage.py runserver
+```
+
+**Терминал 2 — frontend:**
+
+```bash
+cd frontend
+npm start
+```
+
+После запуска откройте в браузере **http://localhost:3000**. Убедитесь, что backend запущен на **http://127.0.0.1:8000**, иначе загрузка клиентов и сделок не сработает.
+
+---
+
+## API
+
+| Метод | URL | Описание |
+|-------|-----|----------|
+| GET | `/api/clients/` | Список клиентов |
+| POST | `/api/clients/` | Создание клиента |
+| GET | `/api/clients/<id>/` | Детали клиента |
+| PUT / PATCH | `/api/clients/<id>/` | Обновление клиента |
+| DELETE | `/api/clients/<id>/` | Удаление клиента |
+| GET | `/api/deals/` | Список сделок |
+| POST | `/api/deals/` | Создание сделки |
+| GET | `/api/deals/<id>/` | Детали сделки |
+| PUT / PATCH | `/api/deals/<id>/` | Обновление сделки |
+| DELETE | `/api/deals/<id>/` | Удаление сделки |
+
+Базовый URL API: **http://127.0.0.1:8000**.
+
+Интерактивная документация (browsable API):  
+http://127.0.0.1:8000/api/clients/ и http://127.0.0.1:8000/api/deals/
+
+---
+
+## Админ-панель
+
+- URL: **http://127.0.0.1:8000/admin/**
+- Вход по учётной записи суперпользователя, созданной через `createsuperuser`.
+- В админке можно добавлять, редактировать и удалять **клиентов** и **сделки**. Данные, добавленные там, отображаются во фронтенде (вкладки «Клиенты» и «Сделки»).
+
+---
+
+## Полезные команды
+
+```bash
+# Миграции (из каталога crm_diploma)
+python manage.py makemigrations
+python manage.py migrate
+
+# Запуск тестов (из crm_diploma)
+python manage.py test
+
+# Сборка React для production (из frontend)
+npm run build
+```
+
+---
+
+## Лицензия
+
+Учебный проект. Использование — по согласованию с автором.
 
