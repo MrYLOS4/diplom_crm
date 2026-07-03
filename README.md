@@ -81,7 +81,7 @@ cd crm_diploma
 ..\venv\Scripts\python.exe manage.py runserver
 ```
 
-Бэкенд: http://127.0.0.1:8000  
+Бэкенд: http://127.0.0.1:3000  
 Админка: http://127.0.0.1:8000/admin/
 
 ### 3. Фронтенд (React)
